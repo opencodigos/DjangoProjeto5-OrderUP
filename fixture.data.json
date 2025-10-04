@@ -1,0 +1,978 @@
+[
+{
+  "model": "myapp.restaurant",
+  "pk": 1,
+  "fields": {
+    "name": "Restaurante X",
+    "description": "Restaurante X o melhor da sua cidade",
+    "address": "Rua Jose macio pereira 123",
+    "phone": "16999487585",
+    "opening_time": "18:00:00",
+    "closing_time": "23:00:00",
+    "image": "restaurants/django-logo-icon.jpg",
+    "owner": 1,
+    "created_at": "2025-02-10T16:37:46.247Z"
+  }
+},
+{
+  "model": "myapp.restaurant",
+  "pk": 2,
+  "fields": {
+    "name": "Cantina Italiana",
+    "description": "Autêntica culinária italiana com massas frescas e pizzas artesanais.",
+    "address": "Rua das Flores, 123",
+    "phone": "(11) 3456-7890",
+    "opening_time": "11:00:00",
+    "closing_time": "23:00:00",
+    "image": "",
+    "owner": 2,
+    "created_at": "2025-02-10T16:37:46.247Z"
+  }
+},
+{
+  "model": "myapp.restaurant",
+  "pk": 3,
+  "fields": {
+    "name": "Sabor Oriental",
+    "description": "O melhor da culinária japonesa e chinesa em um só lugar.",
+    "address": "Avenida Paulista, 1000",
+    "phone": "(11) 2345-6789",
+    "opening_time": "12:00:00",
+    "closing_time": "00:00:00",
+    "image": "",
+    "owner": 2,
+    "created_at": "2025-02-10T16:37:46.247Z"
+  }
+},
+{
+  "model": "myapp.restaurant",
+  "pk": 4,
+  "fields": {
+    "name": "Churrascaria Gaúcha",
+    "description": "Carnes nobres preparadas no verdadeiro estilo gaúcho.",
+    "address": "Rua dos Pampas, 456",
+    "phone": "(11) 3456-7891",
+    "opening_time": "11:30:00",
+    "closing_time": "23:30:00",
+    "image": "",
+    "owner": 2,
+    "created_at": "2025-02-10T16:37:46.247Z"
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 1,
+  "fields": {
+    "restaurant": 2,
+    "number": 1,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 2,
+  "fields": {
+    "restaurant": 2,
+    "number": 2,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 3,
+  "fields": {
+    "restaurant": 2,
+    "number": 3,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 4,
+  "fields": {
+    "restaurant": 2,
+    "number": 4,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 5,
+  "fields": {
+    "restaurant": 2,
+    "number": 5,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 6,
+  "fields": {
+    "restaurant": 2,
+    "number": 6,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 7,
+  "fields": {
+    "restaurant": 2,
+    "number": 7,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 8,
+  "fields": {
+    "restaurant": 2,
+    "number": 8,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 9,
+  "fields": {
+    "restaurant": 2,
+    "number": 9,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 10,
+  "fields": {
+    "restaurant": 2,
+    "number": 10,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 11,
+  "fields": {
+    "restaurant": 3,
+    "number": 1,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 12,
+  "fields": {
+    "restaurant": 3,
+    "number": 2,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 13,
+  "fields": {
+    "restaurant": 3,
+    "number": 3,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 14,
+  "fields": {
+    "restaurant": 3,
+    "number": 4,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 15,
+  "fields": {
+    "restaurant": 3,
+    "number": 5,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 16,
+  "fields": {
+    "restaurant": 3,
+    "number": 6,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 17,
+  "fields": {
+    "restaurant": 3,
+    "number": 7,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 18,
+  "fields": {
+    "restaurant": 3,
+    "number": 8,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 19,
+  "fields": {
+    "restaurant": 3,
+    "number": 9,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 20,
+  "fields": {
+    "restaurant": 3,
+    "number": 10,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 21,
+  "fields": {
+    "restaurant": 4,
+    "number": 1,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 22,
+  "fields": {
+    "restaurant": 4,
+    "number": 2,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 23,
+  "fields": {
+    "restaurant": 4,
+    "number": 3,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 24,
+  "fields": {
+    "restaurant": 4,
+    "number": 4,
+    "capacity": 2
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 25,
+  "fields": {
+    "restaurant": 4,
+    "number": 5,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 26,
+  "fields": {
+    "restaurant": 4,
+    "number": 6,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 27,
+  "fields": {
+    "restaurant": 4,
+    "number": 7,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 28,
+  "fields": {
+    "restaurant": 4,
+    "number": 8,
+    "capacity": 4
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 29,
+  "fields": {
+    "restaurant": 4,
+    "number": 9,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.table",
+  "pk": 30,
+  "fields": {
+    "restaurant": 4,
+    "number": 10,
+    "capacity": 6
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 1,
+  "fields": {
+    "restaurant": 2,
+    "name": "Bruschetta",
+    "description": "Pão italiano grelhado com tomates, alho e manjericão",
+    "price": "25.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 2,
+  "fields": {
+    "restaurant": 2,
+    "name": "Carpaccio",
+    "description": "Finas fatias de carne com molho de mostarda e alcaparras",
+    "price": "45.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 3,
+  "fields": {
+    "restaurant": 2,
+    "name": "Spaghetti alla Carbonara",
+    "description": "Massa fresca com molho de ovos, pecorino e guanciale",
+    "price": "68.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 4,
+  "fields": {
+    "restaurant": 2,
+    "name": "Lasagna alla Bolognese",
+    "description": "Camadas de massa com molho bolonhesa e bechamel",
+    "price": "72.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 5,
+  "fields": {
+    "restaurant": 2,
+    "name": "Pizza Margherita",
+    "description": "Molho de tomate, mussarela de búfala e manjericão",
+    "price": "59.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 6,
+  "fields": {
+    "restaurant": 2,
+    "name": "Tiramisù",
+    "description": "Clássica sobremesa italiana com café e mascarpone",
+    "price": "32.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 7,
+  "fields": {
+    "restaurant": 2,
+    "name": "Panna Cotta",
+    "description": "Creme de baunilha com calda de frutas vermelhas",
+    "price": "28.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 8,
+  "fields": {
+    "restaurant": 3,
+    "name": "Guioza",
+    "description": "Pastéis orientais grelhados (6 unidades)",
+    "price": "32.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 9,
+  "fields": {
+    "restaurant": 3,
+    "name": "Tempurá de Legumes",
+    "description": "Legumes empanados e fritos",
+    "price": "38.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 10,
+  "fields": {
+    "restaurant": 3,
+    "name": "Sushi Especial",
+    "description": "Combinado com 20 peças variadas",
+    "price": "120.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 11,
+  "fields": {
+    "restaurant": 3,
+    "name": "Yakisoba",
+    "description": "Macarrão oriental com legumes e frango",
+    "price": "55.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 12,
+  "fields": {
+    "restaurant": 3,
+    "name": "Temaki Salmão",
+    "description": "Cone de alga com arroz e salmão",
+    "price": "35.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 13,
+  "fields": {
+    "restaurant": 3,
+    "name": "Mochi",
+    "description": "Doce japonês de arroz recheado",
+    "price": "22.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 14,
+  "fields": {
+    "restaurant": 3,
+    "name": "Sorvete de Chá Verde",
+    "description": "Sorvete artesanal de matchá",
+    "price": "25.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 15,
+  "fields": {
+    "restaurant": 4,
+    "name": "Pão de Alho",
+    "description": "Pão caseiro com manteiga de alho",
+    "price": "18.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 16,
+  "fields": {
+    "restaurant": 4,
+    "name": "Salada Completa",
+    "description": "Mix de folhas, legumes e molhos",
+    "price": "35.90",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 17,
+  "fields": {
+    "restaurant": 4,
+    "name": "Picanha",
+    "description": "Corte nobre grelhado no ponto",
+    "price": "89.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 18,
+  "fields": {
+    "restaurant": 4,
+    "name": "Costela no Bafo",
+    "description": "Costela assada lentamente por 8 horas",
+    "price": "78.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 19,
+  "fields": {
+    "restaurant": 4,
+    "name": "Fraldinha",
+    "description": "Corte suculento e macio",
+    "price": "72.90",
+    "category": "prato_principal",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 20,
+  "fields": {
+    "restaurant": 4,
+    "name": "Pudim de Leite",
+    "description": "Pudim caseiro com calda de caramelo",
+    "price": "25.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 21,
+  "fields": {
+    "restaurant": 4,
+    "name": "Papaya com Creme",
+    "description": "Papaya com sorvete de creme",
+    "price": "28.90",
+    "category": "sobremesa",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.menuitem",
+  "pk": 22,
+  "fields": {
+    "restaurant": 1,
+    "name": "Salada Tropical",
+    "description": "Salada tipica tropical com azeite e sal rosa.",
+    "price": "15.00",
+    "category": "entrada",
+    "image": "",
+    "available": true
+  }
+},
+{
+  "model": "myapp.reservation",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "restaurant": 2,
+    "table": 5,
+    "date": "2025-02-10",
+    "time": "14:30:00",
+    "guests": 4,
+    "status": "confirmada",
+    "created_at": "2025-02-10T16:26:48.922Z",
+    "notes": "Entrada, Almoço e gostariamos de sobremesa."
+  }
+},
+{
+  "model": "myapp.reservation",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "restaurant": 4,
+    "table": 29,
+    "date": "0005-02-10",
+    "time": "18:00:00",
+    "guests": 6,
+    "status": "confirmada",
+    "created_at": "2025-02-10T16:56:32.120Z",
+    "notes": "mesa para 5 e uma criança"
+  }
+},
+{
+  "model": "myapp.reservation",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "restaurant": 2,
+    "table": 9,
+    "date": "2025-02-10",
+    "time": "15:00:00",
+    "guests": 6,
+    "status": "confirmada",
+    "created_at": "2025-02-10T17:15:35.314Z",
+    "notes": "teste"
+  }
+},
+{
+  "model": "myapp.order",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "restaurant": 2,
+    "reservation": 1,
+    "status": "cancelado",
+    "created_at": "2025-02-10T16:53:07.005Z",
+    "total": "0.00",
+    "notes": null
+  }
+},
+{
+  "model": "myapp.order",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "restaurant": 2,
+    "reservation": 1,
+    "status": "pendente",
+    "created_at": "2025-02-10T16:53:36.990Z",
+    "total": "636.50",
+    "notes": null
+  }
+},
+{
+  "model": "myapp.order",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "restaurant": 4,
+    "reservation": 2,
+    "status": "entregue",
+    "created_at": "2025-02-10T16:57:36.802Z",
+    "total": "1055.60",
+    "notes": null
+  }
+},
+{
+  "model": "myapp.order",
+  "pk": 4,
+  "fields": {
+    "user": 3,
+    "restaurant": 4,
+    "reservation": 2,
+    "status": "pendente",
+    "created_at": "2025-02-10T17:07:11.928Z",
+    "total": "94.50",
+    "notes": null
+  }
+},
+{
+  "model": "myapp.order",
+  "pk": 5,
+  "fields": {
+    "user": 3,
+    "restaurant": 2,
+    "reservation": 3,
+    "status": "pendente",
+    "created_at": "2025-02-10T17:17:39.682Z",
+    "total": "993.40",
+    "notes": null
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 1,
+  "fields": {
+    "order": 2,
+    "item": 1,
+    "quantity": 4,
+    "price": "103.60"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 2,
+  "fields": {
+    "order": 2,
+    "item": 3,
+    "quantity": 2,
+    "price": "137.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 3,
+  "fields": {
+    "order": 2,
+    "item": 4,
+    "quantity": 2,
+    "price": "145.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 4,
+  "fields": {
+    "order": 2,
+    "item": 5,
+    "quantity": 1,
+    "price": "59.90"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 5,
+  "fields": {
+    "order": 2,
+    "item": 6,
+    "quantity": 4,
+    "price": "131.60"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 6,
+  "fields": {
+    "order": 2,
+    "item": 7,
+    "quantity": 2,
+    "price": "57.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 7,
+  "fields": {
+    "order": 3,
+    "item": 15,
+    "quantity": 10,
+    "price": "189.00"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 8,
+  "fields": {
+    "order": 3,
+    "item": 16,
+    "quantity": 2,
+    "price": "71.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 9,
+  "fields": {
+    "order": 3,
+    "item": 17,
+    "quantity": 6,
+    "price": "539.40"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 10,
+  "fields": {
+    "order": 3,
+    "item": 19,
+    "quantity": 2,
+    "price": "145.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 11,
+  "fields": {
+    "order": 3,
+    "item": 20,
+    "quantity": 2,
+    "price": "51.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 12,
+  "fields": {
+    "order": 3,
+    "item": 21,
+    "quantity": 2,
+    "price": "57.80"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 13,
+  "fields": {
+    "order": 4,
+    "item": 15,
+    "quantity": 5,
+    "price": "94.50"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 14,
+  "fields": {
+    "order": 5,
+    "item": 1,
+    "quantity": 10,
+    "price": "259.00"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 15,
+  "fields": {
+    "order": 5,
+    "item": 3,
+    "quantity": 3,
+    "price": "206.70"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 16,
+  "fields": {
+    "order": 5,
+    "item": 4,
+    "quantity": 3,
+    "price": "218.70"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 17,
+  "fields": {
+    "order": 5,
+    "item": 6,
+    "quantity": 5,
+    "price": "164.50"
+  }
+},
+{
+  "model": "myapp.orderitem",
+  "pk": 18,
+  "fields": {
+    "order": 5,
+    "item": 7,
+    "quantity": 5,
+    "price": "144.50"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$1aUTLoU5Mnj0SeSaOS7uDL$xqN4G0t/xQm+6K6Wk62iWFqczD49jlUUXl+Km1N7uE8=",
+    "last_login": "2025-02-10T16:52:20.076Z",
+    "is_superuser": true,
+    "username": "leticia",
+    "first_name": "Letícia",
+    "last_name": "Lima",
+    "email": "leticia@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-02-10T14:28:14Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$urMOVQUA1lrH0A1hTb4X6w$+ARaqHsXo1FI+NZyonnFCaJbJE2qsUW+xx7m1qf0C28=",
+    "last_login": "2025-02-10T17:16:06.392Z",
+    "is_superuser": false,
+    "username": "demo",
+    "first_name": "Usuário",
+    "last_name": "Demo",
+    "email": "demo@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-02-10T16:23:11Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$bhpUu3GtVn1fDgvbO5E5Bw$kZhXoZ1XVLUWNpAkrIDBpGWFaY3yatNtrQHxOcNcMD8=",
+    "last_login": "2025-02-10T17:16:41.615Z",
+    "is_superuser": false,
+    "username": "lucas",
+    "first_name": "lucas",
+    "last_name": "gandia",
+    "email": "lucas@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-02-10T16:55:26.692Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "g6b4cchif8oksr8hb6fea6q6xvq49y2m",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFleLt07zeQYQCpGkhKuzL-uzbpQrf3nHNfLOC21rCNvIQ5sTOT7PS7RaRHbjtId2y3zqm3dZkj3xV-0MGvPeXn5XD_DiqO-q0nnSkJJbzLBEqTMbYUZSgLWbQDKB5RFGWtBIhREBiH3kQnrZzIG8_eH9xvN1Q:1thXOj:ZvK_rHv3rdrlvdELaoE4D73thmsLXhQnhNcogFPJI90",
+    "expire_date": "2025-02-24T17:16:41.620Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "n4lrptm07vgs76oarhwe9xf36nc3vd2b",
+  "fields": {
+    "session_data": ".eJxVjEsOAiEQBe_C2hBsvu3SvWcgfBoZNZAMMyvj3Q3JLHT7quq9mQ_7Vv0-aPVLZhcG7PS7xZCe1CbIj9DunafetnWJfCr8oIPfeqbX9XD_DmoYddZC6iJsssJQkToabRzqiHSGIgGlAEdFZaetQkwRg1NJAhmLkCPowj5fxu83Nw:1thX5T:r07PeX8dz1TQ9dLuyZpmFmmzAUlFtvsgMBE6-cHIkzY",
+    "expire_date": "2025-02-24T16:56:47.722Z"
+  }
+}
+]
