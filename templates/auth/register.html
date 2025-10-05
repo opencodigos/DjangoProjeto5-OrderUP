@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Registro{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="col-md-6 offset-md-3">
+    <h2 class="text-center mb-4">Criar Conta</h2> 
+    {% crispy form %}
+    <hr>
+    <p class="text-center">Já tem uma conta? <a href="{% url 'login' %}">Entre aqui</a></p> 
+</div>
+{% endblock %}
