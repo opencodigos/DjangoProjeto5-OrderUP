@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-leaf"></i> Django Site</a>
+            <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-leaf"></i> Reservas OrderUP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +50,7 @@
                             {% endif %}
 
                             <li>
-                                <a class="dropdown-item" href="#my_reservations">
+                                <a class="dropdown-item" href="{% url 'my_reservations' %}">
                                     <i class="fas fa-calendar"></i> Minhas Reservas
                                 </a>
                             </li>

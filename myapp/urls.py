@@ -7,6 +7,11 @@ from .views import (
     restaurant_detail, 
     menu_item_create,
     my_restaurants,
+    reservation_create,
+    reservation_detail,
+    my_reservations,
+    reservation_manage,
+    reservation_update_status, 
 )
 
 urlpatterns = [
@@ -22,6 +27,12 @@ urlpatterns = [
     path('restaurant/<int:restaurant_pk>/menu/add/', menu_item_create, name='menu_item_create'),
     path('my-restaurants/', my_restaurants, name='my_restaurants'), 
 
-    
+    # URLs de reserva
+    path('restaurant/<int:restaurant_pk>/reserve/', reservation_create, name='reservation_create'), 
+    path('reservation/<int:pk>/', reservation_detail, name='reservation_detail'), 
+    path('reservations/', my_reservations, name='my_reservations'),
+
+    path('restaurant/<int:restaurant_pk>/reservations/', reservation_manage, name='reservation_manage'), 
+    path('reservation/<int:pk>/update-status/', reservation_update_status, name='reservation_update_status'),
 
 ]

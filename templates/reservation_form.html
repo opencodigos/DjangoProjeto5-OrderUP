@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Fazer Reserva{% endblock %} 
+{% load crispy_forms_tags %} 
+{% block content %}  
+<div class="col-md-8 offset-md-2">
+    <h2 class="text-center mb-4">Fazer Reserva - {{ restaurant.name }}</h2>
+    {% crispy form %}
+</div>
+{% endblock %}

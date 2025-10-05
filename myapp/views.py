@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required 
 from django.contrib.auth import login
 from django.contrib import messages 
-from .forms import UserRegistrationForm, RestaurantForm, MenuItemForm
-from .models import Restaurant
+from .forms import (
+    UserRegistrationForm, 
+    RestaurantForm, 
+    MenuItemForm, 
+    ReservationForm
+) 
+from .models import Restaurant, Table, Reservation
     
 def home(request):
     restaurants = Restaurant.objects.all()
@@ -80,3 +85,106 @@ def menu_item_create(request, restaurant_pk):
     else:
         form = MenuItemForm()
     return render(request, 'menu_item_form.html', {'form': form, 'restaurant': restaurant})
+
+
+@login_required
+def reservation_create(request, restaurant_pk):
+    restaurant = get_object_or_404(Restaurant, pk=restaurant_pk)
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.restaurant = restaurant
+            
+            # Lógica para encontrar uma mesa disponível
+            available_table = Table.objects.filter(
+                restaurant=restaurant,
+                capacity__gte=form.cleaned_data['guests']
+            ).first()
+            
+            if available_table:
+                reservation.table = available_table # Mesa 5 disponivel
+                reservation.save()
+                messages.success(request, 'Reserva realizada com sucesso!')
+                return redirect('reservation_detail', pk=reservation.pk)
+            else:
+                messages.error(request, 'Não há mesas disponíveis para o número de pessoas solicitado.')
+    else:
+        form = ReservationForm()
+    return render(request, 'reservation_form.html', 
+                  {'form': form, 'restaurant': restaurant})
+
+@login_required
+def reservation_detail(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+    return render(request, 'reservation_detail.html', {'reservation': reservation})
+
+
+@login_required
+def my_reservations(request):
+    reservations = Reservation.objects.filter(
+        user=request.user).order_by('-date', '-time')
+    return render(request, 'my_reservations.html', {'reservations': reservations})
+
+
+
+@login_required
+def reservation_manage(request, restaurant_pk):
+    restaurant = get_object_or_404(Restaurant, pk=restaurant_pk)
+
+    # Verifica se o usuário é o dono do restaurante
+    if request.user != restaurant.owner:
+        messages.error(request, 'Você não tem permissão para gerenciar \
+                       as reservas deste restaurante.')
+        return redirect('restaurant_detail', pk=restaurant_pk)
+
+    # Filtro por status
+    status_filter = request.GET.get('status')
+    reservations = Reservation.objects.filter(restaurant=restaurant)
+
+    if status_filter:
+        reservations = reservations.filter(status=status_filter)
+
+    # Contadores para o menu
+    pending_count = Reservation.objects.filter(
+        restaurant=restaurant, status='pendente').count()
+    confirmed_count = Reservation.objects.filter(
+        restaurant=restaurant, status='confirmada').count()
+    cancelled_count = Reservation.objects.filter(
+        restaurant=restaurant, status='cancelada').count()
+
+    context = {
+        'restaurant': restaurant,
+        'reservations': reservations.order_by('-date', '-time'),
+        'status_filter': status_filter,
+        'pending_count': pending_count,
+        'confirmed_count': confirmed_count,
+        'cancelled_count': cancelled_count,
+    }
+
+    return render(request, 'reservation_manage.html', context) 
+    
+    
+@login_required
+def reservation_update_status(request, pk):
+    reservation = get_object_or_404(Reservation, pk=pk)
+
+    # Verifica se o usuário é o dono do restaurante ou superusuário
+    if not request.user.is_superuser and request.user != reservation.restaurant.owner:
+        messages.error(request, 'Você não tem permissão para atualizar esta reserva.')
+        return redirect('reservation_detail', pk=pk)
+
+    if request.method == 'POST':
+        new_status = request.POST.get('status') # pode ser 'confirmada' ou 'cancelada'
+        if new_status in ['confirmada', 'cancelada']:
+            reservation.status = new_status
+            reservation.save()
+
+            # Enviar notificação ao cliente
+            status_display = 'confirmada' if new_status == 'confirmada' else 'rejeitada'
+            messages.success(request, f'Reserva {status_display} com sucesso!')
+        else:
+            messages.error(request, 'Status inválido.')
+
+    return redirect('reservation_detail', pk=pk)

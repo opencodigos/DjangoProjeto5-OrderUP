@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Gerenciar Reservas{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">Reservas - {{ restaurant.name }}</h2>
+
+<!-- Abas de filtro -->
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        <a class="nav-link {% if not status_filter %}active{% endif %}" href="?">
+            Todas
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'pendente' %}active{% endif %}" href="?status=pendente">
+            Pendentes <span class="badge bg-warning">{{ pending_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'confirmada' %}active{% endif %}" href="?status=confirmada">
+            Confirmadas <span class="badge bg-success">{{ confirmed_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'cancelada' %}active{% endif %}" href="?status=cancelada">
+            Canceladas <span class="badge bg-danger">{{ cancelled_count }}</span>
+        </a>
+    </li>
+</ul>
+
+<!-- Tabela de reservas -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Mesa</th>
+            <th>Pessoas</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reservation in reservations %}
+        <tr>
+            <td>{{ reservation.user.get_full_name }}</td>
+            <td>{{ reservation.date|date:"d/m/Y" }}</td>
+            <td>{{ reservation.time|time:"H:i" }}</td>
+            <td>Mesa {{ reservation.table.number }}</td>
+            <td>{{ reservation.guests }}</td>
+            <td>
+                <span class="badge {% if reservation.status == 'confirmada' %}bg-success{% elif reservation.status == 'pendente' %}bg-warning{% else %}bg-danger{% endif %}">
+                    {{ reservation.get_status_display }}
+                </span>
+            </td>
+            <td>
+                <a href="{% url 'reservation_detail' pk=reservation.pk %}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-eye"></i> Ver
+                </a>
+                {% if reservation.status == 'pendente' %}
+                <form method="post" action="{% url 'reservation_update_status' pk=reservation.pk %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="confirmada">
+                    <button type="submit" class="btn btn-sm btn-success">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </form>
+                <form method="post" action="{% url 'reservation_update_status' pk=reservation.pk %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="cancelada">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center text-muted">Nenhuma reserva encontrada.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

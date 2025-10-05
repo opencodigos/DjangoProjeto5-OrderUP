@@ -5,7 +5,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Layout, Row, Column, Field, Submit, Button, HTML
 )
-from .models import Restaurant, MenuItem
+from .models import Restaurant, MenuItem, Reservation
 
 class UserRegistrationForm(UserCreationForm):   
     email = forms.EmailField(required=True, label="Endereço de Email")
@@ -157,6 +157,42 @@ class MenuItemForm(forms.ModelForm):
                 ),
                 Column(
                     Submit('submit', '{% if form.instance.pk %}Salvar Alterações{% else %}Adicionar Item{% endif %}', css_class='btn btn-primary'),
+                    css_class='col-auto ms-auto'
+                ),
+            ),
+        )
+
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['date', 'time', 'guests', 'notes']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        } 
+
+    def __init__(self, *args, **kwargs):
+        super(ReservationForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-6'),
+            ),
+            Row(
+                Column('time', css_class='col-md-6'),
+                Column('guests', css_class='col-md-6'),
+            ), 
+            Field('notes', rows=3), 
+             Row(
+                Column(
+                    HTML('<a href="{% url \'restaurant_detail\' pk=restaurant.pk %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>'),
+                    css_class='col-auto'
+                ),
+                Column(
+                    Submit('submit', '{% if form.instance.pk %}Salvar Alterações{% else %}Adicionar Reserva{% endif %}', css_class='btn btn-primary'),
                     css_class='col-auto ms-auto'
                 ),
             ),

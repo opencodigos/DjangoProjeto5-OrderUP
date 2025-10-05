@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Detalhes da Reserva{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="mb-4">ID: {{ reservation.id }} - Detalhes da Reserva</h2>
+        
+        <div class="mb-4">
+            <h4>{{ reservation.restaurant.name }}</h4>
+            <p class="text-muted">
+                <i class="fas fa-map-marker-alt"></i> {{ reservation.restaurant.address }}
+            </p>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <p><i class="fas fa-calendar"></i> {{ reservation.date|date:"d/m/Y" }}</p>
+                <p><i class="fas fa-clock"></i> {{ reservation.time|time:"H:i" }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><i class="fas fa-users"></i> {{ reservation.guests }} pessoas</p>
+                <p><i class="fas fa-chair"></i> Mesa {{ reservation.table.number }}</p>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <span class="badge 
+                {% if reservation.status == 'confirmada' %}bg-success
+                {% elif reservation.status == 'pendente' %}bg-warning
+                {% else %}bg-danger{% endif %}">
+                {{ reservation.get_status_display }}
+            </span>
+        </div>
+
+        {% if reservation.notes %}
+        <div class="mb-4">
+            <strong>Observações:</strong>
+            <p>{{ reservation.notes }}</p>
+        </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-between">
+             <a href="javascript:history.back()" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+
+            {% if user == reservation.restaurant.owner and reservation.status == 'pendente' %}
+            <div>
+                <form method="post" action="{% url 'reservation_update_status' pk=reservation.pk %}" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="confirmada">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Confirmar Reserva
+                    </button>
+                </form>
+                <form method="post" action="{% url 'reservation_update_status' pk=reservation.pk %}" class="d-inline ms-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="cancelada">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Rejeitar Reserva
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
