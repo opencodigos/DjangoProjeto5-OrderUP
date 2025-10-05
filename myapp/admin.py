@@ -1,6 +1,7 @@
 from django.contrib import admin 
 from django.utils.html import format_html
 from .models import (
+    UserProfile,
 	Restaurant, 
     Table, 
     MenuItem, 
@@ -14,6 +15,13 @@ from .models import (
 # admin.site.register(Reservation)
 # admin.site.register(Order)
 # admin.site.register(OrderItem) 
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'is_business']
+    list_filter = ['is_business']
+    search_fields = ['user__username']
+
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):

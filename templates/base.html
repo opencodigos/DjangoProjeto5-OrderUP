@@ -40,11 +40,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                         
-                            <!-- Meus Restaurantes -->
-                            {% if user.restaurant_set.exists %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_restaurants' %}">
-                                    <i class="fas fa-utensils"></i> Meus Restaurantes
+                           {% if user.profile.is_business %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'my_restaurants' %}">
+                                    <i class="fas fa-store"></i> Meus Restaurantes
                                 </a>
                             </li>
                             {% endif %}

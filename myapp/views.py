@@ -20,6 +20,11 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            # Atualiza o perfil com is_business
+            user.profile.is_business = form.cleaned_data.get('is_business', False)
+            user.profile.save()
+
             login(request, user)
             messages.success(request, 'Registro realizado com sucesso!')
             return redirect('home')

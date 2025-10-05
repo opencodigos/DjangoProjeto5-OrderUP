@@ -3,17 +3,33 @@
 {% block title %}Home - OrderUP{% endblock %}
 {% block content %} 
 <div class="bg-light rounded-3 p-5 mb-5 text-center">
-    <h1 class="display-5 fw-bold">Bem-vindo ao OrderUP</h1>
+      <h1 class="display-5 fw-bold">Bem-vindo(a) 
+        {% if user.is_authenticated %}
+            {{ user.get_full_name|default:user.username }}
+        {% else %}
+            ao OrderUP
+        {% endif %}
+    </h1> 
+
     <p class="lead text-muted">Sistema de reservas para restaurantes</p>
+ 
     {% if user.is_authenticated %}
+        {% if user.profile.is_business %}
         <a href="{% url 'restaurant_create' %}" class="btn btn-primary btn-lg mt-3">
             <i class="fas fa-plus-circle"></i> Cadastrar Restaurante
         </a>
+        {% else %}
+        <p class="lead bg-success text-white rounded-3 p-2" style="display: inline-block;">
+            Selecione um restaurante para fazer uma reserva
+            <i class="fas fa-arrow-down"></i>
+        </p>
+        {% endif %}
     {% else %}
         <a href="{% url 'register' %}" class="btn btn-primary btn-lg mt-3">
             <i class="fas fa-rocket"></i> Começar Agora
         </a>
     {% endif %}
+
 </div> 
 <div class="row">
     {% for restaurant in restaurants %}

@@ -2,6 +2,44 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+# Perfil do Usuário (Empresa ou Cliente)
+class UserProfile(models.Model): # 1:1 com User
+    user = models.OneToOneField(User, 
+                                on_delete=models.CASCADE, 
+                                related_name='profile')
+    is_business = models.BooleanField('É Empresa?', default=False)
+    
+    def __str__(self):
+        return f'{self.user.username} \
+            - {"Empresa" if self.is_business else "Cliente"}'
+    
+    class Meta:
+        verbose_name = '0 - Perfil de Usuário'
+        verbose_name_plural = '0 - Perfis de Usuários'
+
+# Cria perfil automaticamente quando um usuário é criado
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    """
+    Signal que cria um perfil automaticamente quando:
+    1. Um novo usuário é criado (created=True)
+    2. Um usuário antigo faz login e não tem perfil
+    """
+    if created:
+        # Novo usuário → cria perfil
+        UserProfile.objects.create(user=instance)
+    else:
+        # Usuário existente → verifica se tem perfil
+        try:
+            instance.profile
+        except UserProfile.DoesNotExist:
+            # Não tem perfil → cria (para usuários antigos)
+            UserProfile.objects.create(user=instance)
+
+
 
 # Tabela de restaurantes
 class Restaurant(models.Model):

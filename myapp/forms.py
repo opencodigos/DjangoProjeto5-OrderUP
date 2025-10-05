@@ -12,6 +12,12 @@ class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(required=True, label="Primeiro Nome")
     last_name = forms.CharField(required=True, label="Sobrenome")
     
+    is_business = forms.BooleanField(
+        required=False,
+        label="Sou uma empresa",
+        help_text="Marque esta opção se você deseja cadastrar um restaurante"
+    )
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1','password2')
@@ -41,6 +47,9 @@ class UserRegistrationForm(UserCreationForm):
                 Column('first_name', css_class='col-md-6'),
                 Column('last_name', css_class='col-md-6'),
             ), 
+            Row(
+                Column('is_business', css_class='col-md-6'),
+            ),
             Row(
                 Column('password1', css_class='col-md-6'),
                 Column('password2', css_class='col-md-6'),

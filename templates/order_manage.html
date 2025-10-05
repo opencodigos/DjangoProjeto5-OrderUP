@@ -63,7 +63,7 @@
             </td>
             <td>{{ order.created_at|date:'d/m/Y H:i' }}</td>
             <td>
-                <div class="d-flex align-items-center">
+                <div class="d-flex gap-1">
                     <a href="{% url 'order_detail' pk=order.pk %}" class="btn btn-circle btn-primary">
                         <i class="fas fa-eye"></i>
                     </a>
