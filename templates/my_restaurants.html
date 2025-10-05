@@ -30,6 +30,9 @@
                 <a href="{% url 'reservation_manage' restaurant_pk=restaurant.pk %}" class="btn btn-sm btn-outline-info">
                     <i class="fas fa-calendar-check"></i> Reservas
                 </a>
+                <a href="{% url 'order_manage' restaurant.pk %}" class="btn btn-sm btn-outline-success">
+                    <i class="fas fa-shopping-cart"></i> Pedidos
+                </a>
             </div> 
         </div> 
     </div>

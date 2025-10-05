@@ -39,10 +39,10 @@
 	                <i class="fas fa-eye"></i> Ver Detalhes
 	            </a>
 	            {% if reservation.status == 'confirmada' %}
-	            <a href="#create_order" class="btn btn-sm btn-success">
-	                <i class="fas fa-utensils"></i> Fazer Pedido
-	            </a>
-	            {% endif %}
+                <a href="{% url 'create_order' reservation_pk=reservation.pk %}" class="btn btn-success">
+                    <i class="fas fa-utensils"></i> Fazer Pedido
+                </a>
+                {% endif %}
 		         </div>
 		         
         </div>

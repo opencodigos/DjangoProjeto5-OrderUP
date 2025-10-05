@@ -45,6 +45,12 @@
                 <i class="fas fa-arrow-left"></i> Voltar
             </a>
 
+            {% if reservation.status == 'confirmada' %}
+            <a href="{% url 'create_order' reservation_pk=reservation.pk %}" class="btn btn-primary">
+                <i class="fas fa-utensils"></i> Fazer Pedido
+            </a>
+            {% endif %}
+
             {% if user == reservation.restaurant.owner and reservation.status == 'pendente' %}
             <div>
                 <form method="post" action="{% url 'reservation_update_status' pk=reservation.pk %}" class="d-inline">

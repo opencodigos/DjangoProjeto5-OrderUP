@@ -12,6 +12,11 @@ from .views import (
     my_reservations,
     reservation_manage,
     reservation_update_status, 
+    create_order,
+    order_detail,
+    order_manage,
+    order_update_status,
+    my_orders,
 )
 
 urlpatterns = [
@@ -34,5 +39,13 @@ urlpatterns = [
 
     path('restaurant/<int:restaurant_pk>/reservations/', reservation_manage, name='reservation_manage'), 
     path('reservation/<int:pk>/update-status/', reservation_update_status, name='reservation_update_status'),
+    
+    # URLs de Order
+    path('reservation/<int:reservation_pk>/order/', create_order, name='create_order'),
+    path('order/<int:pk>/', order_detail, name='order_detail'),
 
+    path('restaurant/<int:restaurant_pk>/orders/', order_manage, name='order_manage'),
+    path('order/<int:pk>/update-status/', order_update_status, name='order_update_status'),
+
+    path('orders/', my_orders, name='my_orders'), 
 ]

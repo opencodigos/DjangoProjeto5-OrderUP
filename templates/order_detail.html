@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Pedido #{{ order.id }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="mb-3">Pedido #{{ order.id }}</h2>
+        
+        <div class="mb-4">
+            <h4>{{ order.restaurant.name }}</h4>
+            <span class="badge 
+                {% if order.status == 'pronto' %}bg-success
+                {% elif order.status == 'preparando' %}bg-info
+                {% elif order.status == 'cancelado' %}bg-danger
+                {% elif order.status == 'pendente' %}bg-warning
+                {% elif order.status == 'entregue' %}bg-secondary{% endif %}">
+                {{ order.get_status_display }}
+            </span>
+        </div>
+
+        <h5 class="mb-3">Itens do pedido</h5>
+        {% for order_item in order.orderitem_set.all %}
+        <div class="border rounded p-2 mb-2">
+            <div class="d-flex justify-content-between">
+                <span>{{ order_item.quantity }}x {{ order_item.item.name }}</span>
+                <strong>R$ {{ order_item.price }}</strong>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class="border-top pt-3 mt-3">
+            <div class="d-flex justify-content-between">
+                <h5>Total:</h5>
+                <h5>R$ {{ order.total }}</h5>
+            </div>
+        </div>
+
+        {% if order.reservation %}
+        <div class="mt-4">
+            <p class="mb-1"><i class="fas fa-calendar"></i> {{ order.reservation.date|date:"d/m/Y" }} às {{ order.reservation.time|time:"H:i" }}</p>
+            <p class="mb-1"><i class="fas fa-chair"></i> Mesa {{ order.reservation.table.number }}</p>
+        </div>
+        {% endif %}
+
+        {% if order.notes %}
+        <div class="mt-3">
+            <strong>Observações:</strong>
+            <p>{{ order.notes }}</p>
+        </div>
+        {% endif %}
+
+        <p class="text-muted small mt-3">Pedido realizado em {{ order.created_at|date:"d/m/Y H:i" }}</p>
+
+        <div class="d-flex justify-content-between">
+            <a href="javascript:window.history.back();" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar para Meus Pedidos
+            </a>
+
+            {% if order.status == 'pendente' %}
+            <form method="post" action="{% url 'order_update_status' order.pk %}" class="d-inline">
+                {% csrf_token %}
+                <input type="hidden" name="status" value="cancelado">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja cancelar este pedido?')">
+                    <i class="fas fa-times"></i> Cancelar Pedido
+                </button>
+            </form>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

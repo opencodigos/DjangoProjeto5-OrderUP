@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Gerenciar Pedidos{% endblock %}
+{% block content %}
+
+<h2 class="mb-4">Pedidos - {{ restaurant.name }}</h2>
+
+<!-- Abas de filtro -->
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        <a class="nav-link {% if not status_filter %}active{% endif %}" href="?">Todos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'pendente' %}active{% endif %}" href="?status=pendente">
+            Pendentes <span class="badge bg-warning">{{ pending_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'preparando' %}active{% endif %}" href="?status=preparando">
+            Preparando <span class="badge bg-info">{{ preparing_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'pronto' %}active{% endif %}" href="?status=pronto">
+            Prontos <span class="badge bg-success">{{ ready_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'entregue' %}active{% endif %}" href="?status=entregue">
+            Entregues <span class="badge bg-secondary">{{ delivered_count }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if status_filter == 'cancelado' %}active{% endif %}" href="?status=cancelado">
+            Cancelados <span class="badge bg-danger">{{ cancelled_count }}</span>
+        </a>
+    </li>
+</ul>
+
+<!-- Tabela de pedidos -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Mesa</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Data/Hora</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.get_full_name }}</td>
+            <td>{% if order.reservation %}Mesa {{ order.reservation.table.number }}{% else %}-{% endif %}</td>
+            <td>R$ {{ order.total }}</td>
+            <td>
+                <span class="badge {% if order.status == 'pendente' %}bg-warning{% elif order.status == 'preparando' %}bg-info{% elif order.status == 'pronto' %}bg-success{% elif order.status == 'entregue' %}bg-secondary{% else %}bg-danger{% endif %}">
+                    {{ order.get_status_display }}
+                </span>
+            </td>
+            <td>{{ order.created_at|date:'d/m/Y H:i' }}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'order_detail' pk=order.pk %}" class="btn btn-circle btn-primary">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    
+                    {% if order.status == 'pendente' %}
+                    <form method="post" action="{% url 'order_update_status' pk=order.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="preparando">
+                        <button type="submit" class="btn btn-circle btn-info" title="Iniciar preparo">
+                            <i class="fas fa-utensils"></i>
+                        </button>
+                    </form>
+                    <form method="post" action="{% url 'order_update_status' pk=order.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="cancelado">
+                        <button type="submit" class="btn btn-circle btn-danger" title="Cancelar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </form>
+                    
+                    {% elif order.status == 'preparando' %}
+                    <form method="post" action="{% url 'order_update_status' pk=order.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="pronto">
+                        <button type="submit" class="btn btn-circle btn-success" title="Marcar como pronto">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </form>
+                    
+                    {% elif order.status == 'pronto' %}
+                    <form method="post" action="{% url 'order_update_status' pk=order.pk %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="entregue">
+                        <button type="submit" class="btn btn-circle btn-secondary" title="Marcar como entregue">
+                            <i class="fas fa-check-double"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center text-muted">Nenhum pedido encontrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

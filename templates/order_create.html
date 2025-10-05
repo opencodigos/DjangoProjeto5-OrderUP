@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Fazer Pedido{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="mb-3">Fazer Pedido - {{ reservation.restaurant.name }}</h2>
+        
+        <p class="text-muted mb-4">
+            <i class="fas fa-calendar"></i> {{ reservation.date|date:"d/m/Y" }} às {{ reservation.time|time:"H:i" }} - 
+            Mesa {{ reservation.table.number }}
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% regroup menu_items by category as category_list %}
+            
+            {% for category in category_list %}
+            <h4 class="mt-4 mb-3">{{ category.grouper|title }}</h4>
+            
+            {% for item in category.list %}
+            <div class="border rounded p-3 mb-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="{% if item.image %}{{ item.image.url }}{% else %}https://via.placeholder.com/80{% endif %}" 
+                             alt="{{ item.name }}" 
+                             class="rounded me-3" 
+                             style="width: 80px; height: 80px; object-fit: cover;">
+                        <div>
+                            <h6 class="mb-1">{{ item.name }}</h6>
+                            <p class="text-muted small mb-1">{{ item.description|truncatewords:15 }}</p>
+                            <strong class="text-success">R$ {{ item.price }}</strong>
+                        </div>
+                    </div>
+                    <div style="text-align: center; width: 150px;"> 
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-outline-secondary" onclick="diminuir({{ item.id }})">−</button>
+                            <input type="tex" 
+                                    id="qtd_{{ item.id }}"
+                                    name="quantities" 
+                                    class="form-control text-center" 
+                                    value="0" 
+                                    min="0" 
+                                    max="20"
+                                    onchange="calcularTotal()">
+                            <button type="button" class="btn btn-outline-secondary" onclick="aumentar({{ item.id }})">+</button>
+                        </div>
+                        <input type="hidden" name="menu_items" value="{{ item.id }}">
+                        <input type="hidden" id="preco_{{ item.id }}" value="{{ item.price }}">
+                        <input type="hidden" id="nome_{{ item.id }}" value="{{ item.name }}">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+
+            <div class="mt-4 mb-4">
+                <label>Observações:</label>
+                <textarea name="notes" class="form-control" rows="2" placeholder="Alguma observação?"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'reservation_detail' pk=reservation.pk %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Confirmar Pedido
+                </button>
+            </div>
+        </form>
+    </div>
+
+ 
+    <!-- Resumo do Pedido -->
+    <div class="col-md-4">
+        <div class="border rounded p-3 mb-4 bg-light">
+            <h4>Resumo do Pedido</h4>
+            <div id="resumo">
+                <p class="text-muted">Nenhum item selecionado</p>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <h5>Total:</h5>
+                <h5 class="text-success">R$ <span id="total">0,00</span></h5>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Função 1: Aumentar quantidade
+function aumentar(itemId) {
+    var input = document.getElementById('qtd_' + itemId);
+    input.value = parseInt(input.value) + 1;
+    calcularTotal();
+}
+
+// Função 2: Diminuir quantidade
+function diminuir(itemId) {
+    var input = document.getElementById('qtd_' + itemId);
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
+        calcularTotal();
+    }
+}
+
+// Função 3: Calcular total e mostrar resumo
+function calcularTotal() {
+    var total = 0;
+    var resumoHTML = '';
+    
+    // Pega todos os inputs de quantidade
+    var inputs = document.querySelectorAll('input[name="quantities"]');
+    
+    inputs.forEach(function(input) {
+        var itemId = input.id.replace('qtd_', '');
+        var quantidade = parseInt(input.value);
+        
+        if (quantidade > 0) {
+            var preco = parseFloat(document.getElementById('preco_' + itemId).value);
+            var nome = document.getElementById('nome_' + itemId).value;
+            var subtotal = quantidade * preco;
+            
+            total += subtotal;
+            
+            // Adiciona linha no resumo
+            resumoHTML += '<div class="d-flex justify-content-between mb-1">';
+            resumoHTML += '<span>' + quantidade + 'x ' + nome + '</span>';
+            resumoHTML += '<span>R$ ' + subtotal.toFixed(2) + '</span>';
+            resumoHTML += '</div>';
+        }
+    });
+    
+    // Atualiza o resumo
+    if (resumoHTML === '') {
+        document.getElementById('resumo').innerHTML = '<p class="text-muted">Nenhum item selecionado</p>';
+    } else {
+        document.getElementById('resumo').innerHTML = resumoHTML;
+    }
+    
+    // Atualiza o total
+    document.getElementById('total').textContent = total.toFixed(2).replace('.', ',');
+}
+</script>
+{% endblock %}
