@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Item ao Cardápio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2 class="mb-4">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Item ao Cardápio</h2>
+        {% crispy form %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    // Preview da imagem antes do upload
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.getElementById('id_image');
+        const imagePreview = document.querySelector('.image-preview');
+        
+        if (imageInput) {
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        if (imagePreview) {
+                            imagePreview.src = e.target.result;
+                        } else {
+                            // Cria preview se não existir
+                            const preview = document.createElement('img');
+                            preview.src = e.target.result;
+                            preview.className = 'img-thumbnail image-preview mt-2';
+                            preview.style.maxHeight = '200px';
+                            imageInput.parentElement.appendChild(preview);
+                        }
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

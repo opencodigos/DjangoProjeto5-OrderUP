@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro de Restaurante{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="col-md-8 offset-md-2">
+    <h2 class="text-center mb-4">Cadastro de Restaurante</h2>
+    {% crispy form %}
+</div>
+{% endblock %}
+{% block extra_js %} 
+<script type="text/javascript">
+    // Preview da imagem antes do upload
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.getElementById('id_image');
+        const imagePreview = document.querySelector('.image-preview');
+        
+        if (imageInput && imagePreview) {
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.height = '200px';
+                        imagePreview.style.objectFit = 'cover';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

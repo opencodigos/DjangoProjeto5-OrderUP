@@ -31,7 +31,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-                    </li> 
+                    </li>  
 
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
@@ -39,6 +39,16 @@
                             <i class="fas fa-user"></i> {{ user.get_full_name|default:user.username }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
+                        
+                            <!-- Meus Restaurantes -->
+                            {% if user.restaurant_set.exists %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'my_restaurants' %}">
+                                    <i class="fas fa-utensils"></i> Meus Restaurantes
+                                </a>
+                            </li>
+                            {% endif %}
+
                             <li>
                                 <a class="dropdown-item" href="#my_reservations">
                                     <i class="fas fa-calendar"></i> Minhas Reservas

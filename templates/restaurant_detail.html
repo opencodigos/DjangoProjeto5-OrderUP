@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}{{ restaurant.name }}{% endblock %}
+{% load static %}
+{% block content %}
+
+<div class="row mb-4">
+
+    <div class="col-md-8"> 
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <img src="{% if restaurant.image %}{{ restaurant.image.url }}{% else %}https://placehold.co/400x300{% endif %}" 
+                    alt="Preview" 
+                    class="img-thumbnail image-preview" 
+                    style="height: 200px; object-fit: cover;">
+            </div>
+
+            <div class="col-md-8">
+                <h1>{{ restaurant.name }}</h1>
+                <p class="lead">{{ restaurant.description }}</p>
+            
+                <div class="mb-3">
+                    <p><i class="fas fa-map-marker-alt"></i> {{ restaurant.address }}</p>
+                    <p><i class="fas fa-phone"></i> {{ restaurant.phone }}</p>
+                    <p><i class="fas fa-clock"></i> {{ restaurant.opening_time|time:"H:i" }} - {{ restaurant.closing_time|time:"H:i" }}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- Editar ou reservar -->
+    <div class="col-md-4">
+
+        {% if user.is_authenticated %}
+            <a href="#" class="btn btn-primary btn-lg w-100 mb-2">
+                <i class="fas fa-calendar-plus"></i> Fazer Reserva
+            </a>
+            {% if user == restaurant.owner %}
+                <a href="#" class="btn btn-warning w-100">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg w-100">
+                <i class="fas fa-sign-in-alt"></i> Entre para Reservar
+            </a>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Cardápio</h2>
+        {% if user == restaurant.owner %}
+            <a href="{% url 'menu_item_create' restaurant_pk=restaurant.pk %}" class="btn btn-success mb-3">
+                <i class="fas fa-plus"></i> Adicionar Item ao Cardápio
+            </a>
+        {% endif %}
+        
+        {% if menu_by_category %}
+        {% for category, items in menu_by_category.items %}
+        <h4 class="mt-4 mb-3">{{ category|title }}</h4>
+        <div class="row g-2">
+            {% for item in items %}
+                <div class="col-md-3">
+                    <div class="d-flex bg-light p-3 rounded"> 
+                        <img src="{% if item.image %}{{ item.image.url }}{% else %}https://placehold.co/400x300{% endif %}"
+                                class="rounded mb-2" 
+                                alt="{{ item.name }}" 
+                                style="width: 100px; height: 100px; object-fit: cover;">
+                        
+                        <div class="ms-4">
+                            <h6 class="mb-1">{{ item.name }}</h6>
+                            <p class="text-muted small mb-2">{{ item.description|truncatewords:10 }}</p>
+                            <div class="mt-auto">
+                                <strong class="text-success">R$ {{ item.price }}</strong>
+                                {% if not item.available %}
+                                    <span class="badge bg-danger ms-2">Indisponível</span>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        {% else %}
+            <p class="text-muted">Cardápio em breve...</p>
+        {% endif %}   
+
+
+    </div>
+</div>
+
+{% endblock %}
